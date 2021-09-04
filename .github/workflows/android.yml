@@ -35,6 +35,7 @@ jobs:
         account: 200522649@@qq.com
         password: lmammqyeiunrbjae
         sender: 200522649@qq.com
+        from: 200522649@qq.com
         to: 2556536414@qq.com
         subject: 这是一封秘密邮件
         body: 打包成功！
