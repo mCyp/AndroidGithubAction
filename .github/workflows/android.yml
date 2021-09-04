@@ -34,7 +34,7 @@ jobs:
         username: ${{ secrets.MAILUSERNAME }}
         password: ${{ secrets.MAILPASSWORD }}
         subject: Github Actions job result
-        to: 2556436414@qq.com
+        to: 2556536414@qq.com
         from: TeaOf 
         secure: true
         body: Build job of ${{github.repository}} completed successfully!
