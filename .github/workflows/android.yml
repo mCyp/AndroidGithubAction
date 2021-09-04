@@ -33,8 +33,7 @@ jobs:
         server_address: smtp.qq.com
         server_port: 465
         username: 200522649@@qq.com
-        password: lmammqyeiunrbjae
-        sender: 200522649@qq.com
+        password: lklozcijxqxhbhca
         from: WangJie
         to: 2556536414@qq.com
         subject: 这是一封 ${{github.repository}} 秘密邮件
