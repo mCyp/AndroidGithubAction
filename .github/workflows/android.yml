@@ -27,15 +27,15 @@ jobs:
       run: ./gradlew build
       
     - name: Send mailer
-      uses: devellany/send-mail@v1.0.2
+      uses: dawidd6/action-send-mail@v3
       if: ${{ success() }}
       with: 
-        host: smtp.qq.com
-        port: 465
-        account: 200522649@@qq.com
+        server_address: smtp.qq.com
+        server_port: 465
+        username: 200522649@@qq.com
         password: lmammqyeiunrbjae
         sender: 200522649@qq.com
-        from: 200522649@qq.com
+        from: WangJie
         to: 2556536414@qq.com
-        subject: 这是一封秘密邮件
+        subject: 这是一封 ${{github.repository}} 秘密邮件
         body: 打包成功！
