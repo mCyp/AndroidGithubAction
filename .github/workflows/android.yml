@@ -20,11 +20,11 @@ jobs:
         distribution: 'adopt'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+   #  - name: Grant execute permission for gradlew
+      # run: chmod +x gradlew
       
-    - name: Build with Gradle
-      run: ./gradlew build
+    # - name: Build with Gradle
+      # run: ./gradlew build
       
     - name: Send mailer
       uses: dawidd6/action-send-mail@v3
@@ -34,7 +34,7 @@ jobs:
         server_port: 465
         username: 200522649@@qq.com
         password: mlnnphhycleybhad
-        from: TeaOf
+        from:  200522649@@qq.com
         to: 2556536414@qq.com
         subject: 这是一封 ${{github.repository}} 秘密邮件
         body: 打包成功！
