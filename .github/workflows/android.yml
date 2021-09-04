@@ -22,5 +22,19 @@ jobs:
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
+      
+    - name: Send mailer
+      uses: devellany/send-mail@v1.0.2
+      if: ${{ success() }}
+      with: 
+        host: smtp.qq.com
+        port: 465
+        account: 200522649@@qq.com
+        password: lmammqyeiunrbjae
+        sender: 200522649@qq.com
+        to: 2556536414@qq.com
+        subject: 这是一封秘密邮件
+        body: 打包成功！
