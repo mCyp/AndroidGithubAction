@@ -26,6 +26,50 @@ jobs:
     # - name: Build with Gradle
       # run: ./gradlew build
       
+    - name: Upload Apk
+      uses: actions/upload-artifact@v1
+      with: 
+        name: qd-info
+        path: app/build/apk/debug/app-debug.apk
+        
+    - name: Upload File to Pgyer
+      uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
+      with: 
+        url: https://upload.pgyer.com/apiv1/app/upload
+        method: POST
+        forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
+        fileForms: '{"file":"app/build/apk/debug/app-debug.apk"}'
+        
+    # step： 获取apk版本号
+    - name: Get Apk Info
+      id: apk
+      uses: JantHsueh/get-apk-info-action@master
+      with:
+        apkPath: app/build/apk/debug/app-debug.apk
+
+    # 获取指定时区的时间
+    - name: Get Time
+      id: time
+      uses: JantHsueh/get-time-action@master
+      with:
+        timeZone: 8
+        
+    # 获取git log
+    - name: Get git log
+      id: git_log
+      uses: JantHsueh/get-git-log-action@master
+      with:
+        tag: release
+        
+    # 向钉钉发送消息
+    - name: dingtalk
+      uses: JantHsueh/webrequest-action@master
+      with:
+        url: ${{ secrets.DINGDING_WEBHOOK }}
+        method: POST
+        payload: '{"msgtype": "text", "text": {"content": "丁丁测试版本号: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
+        headers: '{"Content-Type": "application/json"}'
+
     - name: Send mail
       uses: dawidd6/action-send-mail@v3
       with:
