@@ -30,7 +30,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with: 
         name: qd-info
-        path: app/build/apk/debug/app-debug.apk
+        path: app/build/outputs/apk/debug/app-debug.apk
         
     - name: Upload File to Pgyer
       uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
