@@ -69,7 +69,7 @@ jobs:
       with:
         url: ${{ secrets.DINGDING_WEBHOOK }}
         method: POST
-        payload: '{"msgtype": "text", "text": {"content": "丁丁测试版本号: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
+        payload: '{"msgtype": "text", "text": {"content": "吃饭人，吃饭人，吃饭就是人上人: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
         headers: '{"Content-Type": "application/json"}'
 
     # 发送邮件
