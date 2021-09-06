@@ -26,12 +26,14 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
       
+    # 上传文件  
     - name: Upload Apk
       uses: actions/upload-artifact@v1
       with: 
         name: qd-info
         path: app/build/outputs/apk/debug/app-debug.apk
         
+    # 上传文件到蒲公英    
     - name: Upload File to Pgyer
       uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
       with: 
@@ -70,6 +72,7 @@ jobs:
         payload: '{"msgtype": "text", "text": {"content": "丁丁测试版本号: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
         headers: '{"Content-Type": "application/json"}'
 
+    # 发送邮件
     - name: Send mail
       uses: dawidd6/action-send-mail@v3
       with:
