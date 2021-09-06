@@ -38,14 +38,14 @@ jobs:
         url: https://upload.pgyer.com/apiv1/app/upload
         method: POST
         forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
-        fileForms: '{"file":"app/build/apk/debug/app-debug.apk"}'
+        fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
         
     # step： 获取apk版本号
     - name: Get Apk Info
       id: apk
       uses: JantHsueh/get-apk-info-action@master
       with:
-        apkPath: app/build/apk/debug/app-debug.apk
+        apkPath: app/build/outputs/apk/debug/app-debug.apk
 
     # 获取指定时区的时间
     - name: Get Time
