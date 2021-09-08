@@ -75,9 +75,7 @@ jobs:
     # 向钉钉发送消息
     - name: dingtalk
       run: | 
-            curl 'https://oapi.dingtalk.com/robot/send?access_token=${{ secrets.DINGDING_SIGN }}' 
-              -H 'Content-Type: application/json' 
-              -d '{"msgtype": "text","text": {"content":"吃饭人，吃饭人，吃饭就是人上人!!!!!!"}}'
+            curl 'https://oapi.dingtalk.com/robot/send?access_token=${{ secrets.DINGDING_SIGN }}' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content":"吃饭人，吃饭人，吃饭就是人上人!!!!!!"}}'
 
 
     # 发送邮件
