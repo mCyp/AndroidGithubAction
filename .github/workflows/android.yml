@@ -20,68 +20,76 @@ jobs:
         distribution: 'adopt'
         cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+    #- name: Grant execute permission for gradlew
+      #run: chmod +x gradlew
       
-    - name: Build with Gradle
-      run: ./gradlew build
+    #- name: Build with Gradle
+      #run: ./gradlew build
       
     # 上传文件  
-    - name: Upload Apk
-      uses: actions/upload-artifact@v1
-      with: 
-        name: qd-info
-        path: app/build/outputs/apk/debug/app-debug.apk
+    # - name: Upload Apk
+      # uses: actions/upload-artifact@v1
+      # with: 
+      #  name: qd-info
+      #  path: app/build/outputs/apk/debug/app-debug.apk
         
     # 上传文件到蒲公英    
-    - name: Upload File to Pgyer
-      uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
-      with: 
-        url: https://upload.pgyer.com/apiv1/app/upload
-        method: POST
-        forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
-        fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
+    # - name: Upload File to Pgyer
+      # uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
+      # with: 
+        # url: https://upload.pgyer.com/apiv1/app/upload
+        # method: POST
+        # forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
+        # fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
         
     # step： 获取apk版本号
-    - name: Get Apk Info
-      id: apk
-      uses: JantHsueh/get-apk-info-action@master
-      with:
-        apkPath: app/build/outputs/apk/debug/app-debug.apk
+    # - name: Get Apk Info
+      # id: apk
+      # uses: JantHsueh/get-apk-info-action@master
+      # with:
+        #apkPath: app/build/outputs/apk/debug/app-debug.apk
 
     # 获取指定时区的时间
-    - name: Get Time
-      id: time
-      uses: JantHsueh/get-time-action@master
-      with:
-        timeZone: 8
+    #- name: Get Time
+      #id: time
+      #uses: JantHsueh/get-time-action@master
+      #with:
+        #timeZone: 8
         
     # 获取git log
-    - name: Get git log
-      id: git_log
-      uses: JantHsueh/get-git-log-action@master
-      with:
-        tag: release
+    #- name: Get git log
+      #id: git_log
+      #uses: JantHsueh/get-git-log-action@master
+      #with:
+        #tag: release
+        
+    # 向钉钉发送消息
+    #- name: dingtalk
+      #uses: JantHsueh/webrequest-action@master
+      #with:
+        #url: ${{ secrets.DINGDING_WEBHOOK }}
+        #method: POST
+        #payload: '{"msgtype": "text", "text": {"content": "吃饭人，吃饭人，吃饭就是人上人: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
+        #headers: '{"Content-Type": "application/json"}'
         
     # 向钉钉发送消息
     - name: dingtalk
-      uses: JantHsueh/webrequest-action@master
-      with:
-        url: ${{ secrets.DINGDING_WEBHOOK }}
-        method: POST
-        payload: '{"msgtype": "text", "text": {"content": "吃饭人，吃饭人，吃饭就是人上人: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
-        headers: '{"Content-Type": "application/json"}'
+      run: | 
+            curl 'https://oapi.dingtalk.com/robot/send?access_token=${{ secrets.DINGDING_SIGN }}' 
+              -H 'Content-Type: application/json' 
+              -d '{"msgtype": "text","text": {"content":"吃饭人，吃饭人，吃饭就是人上人!!!!!!"}}'
+
 
     # 发送邮件
-    - name: Send mail
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: smtp.qq.com
-        server_port: 465
-        username: ${{ secrets.MAILUSERNAME }}
-        password: ${{ secrets.MAILPASSWORD }}
-        subject: Github Actions job result
-        to: 2556536414@qq.com
-        from: TeaOf 
-        secure: true
-        body: Build job of ${{github.repository}} completed successfully!
+    #- name: Send mail
+      #uses: dawidd6/action-send-mail@v3
+      #with:
+        #server_address: smtp.qq.com
+        #server_port: 465
+        #username: ${{ secrets.MAILUSERNAME }}
+        #password: ${{ secrets.MAILPASSWORD }}
+        #subject: Github Actions job result
+        #to: 2556536414@qq.com
+        #from: TeaOf 
+        #secure: true
+        #body: Build job of ${{github.repository}} completed successfully!
