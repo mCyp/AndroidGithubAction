@@ -20,11 +20,11 @@ jobs:
         distribution: 'adopt'
         cache: gradle
 
-    #- name: Grant execute permission for gradlew
-      #run: chmod +x gradlew
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
       
-    #- name: Build with Gradle
-      #run: ./gradlew build
+    - name: Build with Gradle
+      run: ./gradlew build
       
     # 上传文件  
     # - name: Upload Apk
@@ -34,13 +34,13 @@ jobs:
       #  path: app/build/outputs/apk/debug/app-debug.apk
         
     # 上传文件到蒲公英    
-    # - name: Upload File to Pgyer
-      # uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
-      # with: 
-        # url: https://upload.pgyer.com/apiv1/app/upload
-        # method: POST
-        # forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
-        # fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
+    - name: Upload File to Pgyer
+      uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
+      with: 
+        url: https://upload.pgyer.com/apiv1/app/upload
+        method: POST
+        forms: '{"_api_key":"${{ secrets.API_KEY }}","uKey":"${{ secrets.PGYER_USER_KEY }}","buildInstallType":3}'
+        fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
         
     # step： 获取apk版本号
     # - name: Get Apk Info
