@@ -24,14 +24,14 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew clean && ./gradlew app:assembleDebug
       
     # 上传文件  
-    # - name: Upload Apk
-      # uses: actions/upload-artifact@v1
-      # with: 
-      #  name: qd-info
-      #  path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Upload Apk
+      uses: actions/upload-artifact@v1
+      with: 
+        name: qd-info
+        path: app/build/outputs/apk/debug/app-debug.apk
         
     # 上传文件到蒲公英    
     - name: Upload File to Pgyer
@@ -43,18 +43,18 @@ jobs:
         fileForms: '{"file":"app/build/outputs/apk/debug/app-debug.apk"}'
         
     # step： 获取apk版本号
-    # - name: Get Apk Info
-      # id: apk
-      # uses: JantHsueh/get-apk-info-action@master
-      # with:
-        #apkPath: app/build/outputs/apk/debug/app-debug.apk
+    - name: Get Apk Info
+      id: apk
+      uses: JantHsueh/get-apk-info-action@master
+      with:
+        apkPath: app/build/outputs/apk/debug/app-debug.apk
 
     # 获取指定时区的时间
-    #- name: Get Time
-      #id: time
-      #uses: JantHsueh/get-time-action@master
-      #with:
-        #timeZone: 8
+    - name: Get Time
+      id: time
+      uses: JantHsueh/get-time-action@master
+      with:
+        timeZone: 8
         
     # 获取git log
     #- name: Get git log
