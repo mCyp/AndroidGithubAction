@@ -34,7 +34,7 @@ jobs:
         
     # 上传文件到蒲公英    
     - name: Upload File to Pgyer
-      run: curl -F 'file=app/build/outputs/apk/debug/app-debug.apk' -F "_api_key=${{ secrets.API_KEY }}" https://www.pgyer.com/apiv2/app/upload
+      run: curl -F 'file=@/app/build/outputs/apk/debug/app-debug.apk' -F "_api_key=${{ secrets.API_KEY }}" https://www.pgyer.com/apiv2/app/upload
       # uses: JantHsueh/upload-file-action@152b476d29548de8df483fab00ea16a36719be35
       # with: 
         # url: https://upload.pgyer.com/apiv1/app/upload
