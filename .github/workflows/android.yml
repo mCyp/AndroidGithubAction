@@ -62,7 +62,7 @@ jobs:
     # 向钉钉发送消息
     - name: dingtalk
       run: | 
-            curl '${{ secrets.DINGDING_WEBHOOK }}' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content":"吃饭! \n 触发人：${{ GITHUB_ACTOR }} \n 版本：${{ env.versionResult }}"}}'
+            curl '${{ secrets.DINGDING_WEBHOOK }}' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content":"吃饭! \n 触发人：$GITHUB_ACTOR \n 版本：${{ env.versionResult }}"}}'
 
 
     # 发送邮件
