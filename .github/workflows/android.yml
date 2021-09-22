@@ -48,8 +48,8 @@ jobs:
     - name: Get git log
       id: git_log
       run: |
-            echo `git log --pretty=format:"%ar : %s" -1`
-            echo  "updateLog=$?" >> $GITHUB_ENV
+            updateLog=`git log --pretty=format:"%ar : %s" -1`
+            echo "updateLog=$updateLog" >> $GITHUB_ENV
         
     # 向钉钉发送消息
     #- name: dingtalk
@@ -63,7 +63,7 @@ jobs:
     # 向钉钉发送消息
     - name: dingtalk
       run: | 
-            curl '${{ secrets.DINGDING_WEBHOOK }}' -H 'Content-Type: application/json' -d '{"msgtype": "text","text": {"content":"吃饭! \n触发人：${{ env.GITHUB_ACTOR }} \n版本：${{ env.versionResult }}"}} \n提交内容：${{ env.updateLog }}'
+            curl '${{ secrets.DINGDING_WEBHOOK }}' -H 'Content-Type: application/json' -d '{"msgtype": "text", "text": {"content":"吃饭! \n 触发人：${{ env.GITHUB_ACTOR }} \n 版本：${{ env.versionResult }}"}} \n 提交内容：${{ env.updateLog }}"}}'
 
 
     # 发送邮件
