@@ -48,8 +48,8 @@ jobs:
     - name: Get git log
       id: git_log
       run: |
-            updateLog=`git log --pretty=format:"%ar : %s" -1`
-            echo  "updateLog=$updateLog" >> $GITHUB_ENV
+            echo `git log --pretty=format:"%ar : %s" -1`
+            echo  "updateLog=$?" >> $GITHUB_ENV
         
     # 向钉钉发送消息
     #- name: dingtalk
