@@ -33,8 +33,8 @@ jobs:
         path: app/build/outputs/apk/debug/app-debug.apk
         
     # 上传文件到蒲公英    
-    - name: Upload File to Pgyer
-      run: curl -F 'file=@app/build/outputs/apk/debug/app-debug.apk' -F "_api_key=${{ secrets.API_KEY }}" -F "uKey=${{ secrets.PGYER_USER_KEY }}" -F "buildInstallType=3" https://www.pgyer.com/apiv2/app/upload
+    # - name: Upload File to Pgyer
+      # run: curl -F 'file=@app/build/outputs/apk/debug/app-debug.apk' -F "_api_key=${{ secrets.API_KEY }}" -F "uKey=${{ secrets.PGYER_USER_KEY }}" -F "buildInstallType=3" https://www.pgyer.com/apiv2/app/upload
         
     # step： 获取apk版本号
     - name: APK Version
