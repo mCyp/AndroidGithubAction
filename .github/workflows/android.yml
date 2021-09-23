@@ -56,30 +56,20 @@ jobs:
       run: echo "sender=$GITHUB_ACTOR" >> $GITHUB_ENV
         
     # 向钉钉发送消息
-    #- name: dingtalk
-      #uses: JantHsueh/webrequest-action@master
-      #with:
-        #url: ${{ secrets.DINGDING_WEBHOOK }}
-        #method: POST
-        #payload: '{"msgtype": "text", "text": {"content": "吃饭人，吃饭人，吃饭就是人上人: ${{ steps.apk.outputs.versionNum }},可直接在App中更新到最新版 \n 距上个正式版的更新记录: \n${{ steps.git_log.outputs.log }}"}}'
-        #headers: '{"Content-Type": "application/json"}'
-        
-    # 向钉钉发送消息
     - name: dingtalk
       run: | 
             curl '${{ secrets.DINGDING_WEBHOOK }}' -H 'Content-Type: application/json' -d '{"msgtype": "text", "text": {"content":"吃饭! \n触发人：${{ env.sender }} \n版本：${{ env.versionResult }} \n提交内容：${{ env.updateLog }} \n下载地址：${{ secrets.PGY_URL }}"}}'
 
-
     # 发送邮件
-    #- name: Send mail
-      #uses: dawidd6/action-send-mail@v3
-      #with:
-        #server_address: smtp.qq.com
-        #server_port: 465
-        #username: ${{ secrets.MAILUSERNAME }}
-        #password: ${{ secrets.MAILPASSWORD }}
-        #subject: Github Actions job result
-        #to: 2556536414@qq.com
-        #from: TeaOf 
-        #secure: true
-        #body: Build job of ${{github.repository}} completed successfully!
+    - name: Send mail
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.qq.com
+        server_port: 465
+        username: ${{ secrets.MAILUSERNAME }}
+        password: ${{ secrets.MAILPASSWORD }}
+        subject: Github Actions job result
+        to: 2556536414@qq.com
+        from: TeaOf 
+        secure: true
+        body: "吃饭! \n触发人：${{ env.sender }} \n版本：${{ env.versionResult }} \n提交内容：${{ env.updateLog }} \n下载地址：${{ secrets.PGY_URL }}"
